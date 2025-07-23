@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import connectDB from "./db/database.js";
 import { app } from "./app.js";
 
+//initiate environment variable as early as app loads
 dotenv.config({
     path: "./env"
 })
