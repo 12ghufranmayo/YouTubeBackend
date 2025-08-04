@@ -15,4 +15,9 @@ app.use(express.urlencoded({extended: true, limit: "16kb"})); // to encode urls 
 app.use(express.static("public")); // to save assets like images
 app.use(cookieParser()); // to connect with browser secure cookies
 
+import userRouter from "./routes/user.routes.js";
+
+// Use middleware for prefix of route
+app.use("/api/v1/users", userRouter);
+
 export {app}
