@@ -16,8 +16,11 @@ app.use(express.static("public")); // to save assets like images
 app.use(cookieParser()); // to connect with browser secure cookies
 
 import userRouter from "./routes/user.routes.js";
+import { errorHandler } from "./utils/errorHandler.js";
 
 // Use middleware for prefix of route
 app.use("/api/v1/users", userRouter);
+
+app.use(errorHandler);
 
 export {app}

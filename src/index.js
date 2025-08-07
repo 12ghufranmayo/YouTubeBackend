@@ -4,7 +4,7 @@ import { app } from "./app.js";
 
 //initiate environment variable as early as app loads
 dotenv.config({
-    path: "./env"
+    path: "./.env"
 })
 
 connectDB()
