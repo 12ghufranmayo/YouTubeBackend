@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/couldinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import jwt from "jsonwebtoken";
 
 const registerUser = asyncHandler(async (req, res) => {
     const {fullName, email, username, password} = req.body;
@@ -161,14 +162,14 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             secure: true
         }
     
-        const {accessToken, newRefreshToken} = await generateAccessandRefreshTokens(user?._id)
-    
+        const {accessToken, refreshToken} = await generateAccessandRefreshTokens(user._id)
+
         return res
         .status(200)
         .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", newRefreshToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
-            new ApiResponse(200, {accessToken, refreshToken: newRefreshToken}, "Access token refreshed successfully")
+            new ApiResponse(200, {accessToken, refreshToken}, "Access token refreshed successfully")
         )
     } catch (error) {
         throw new ApiError(401, error?.message || "Invalid refresh token", [error?.message || "Invalid refresh token"]);
